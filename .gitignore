@@ -1,4 +1,10 @@
-# compiled output
+# Environment files
+.env.development
+.env.production
+ormconfig.js
+ormconfig.json
+
+# Compiled output
 /dist
 /node_modules
 
