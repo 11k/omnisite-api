@@ -32,6 +32,41 @@
 $ npm install
 ```
 
+Add the following files to the root folder and complete them with your values.
+
+<br />
+<b>.env.development</b>
+
+```bash
+DB_HOST="localhost"
+DB_PORT=3306
+DB_USERNAME=""
+DB_PASSWORD=""
+DB_NAME=""
+DB_SYNC="true"
+DB_LOGGING="false"
+```
+
+<b>ormconfig.js</b>
+
+```bash
+module.exports = {
+  type: 'mysql',
+  host: 'localhost',
+  port: '3306',
+  username: '',
+  password: '',
+  database: '',
+  synchronize: true,
+  logging: false,
+  entities: ['src/shared/entities/*.entity.ts'],
+  migrations: ['src/shared/migrations/*.ts'],
+  cli: {
+    migrationsDir: 'src/shared/migrations',
+  },
+};
+```
+
 ## Running the app
 
 ```bash
