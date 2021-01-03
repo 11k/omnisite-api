@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 
-import { IDatabaseConfig } from './config.interfaces';
+import { IDatabaseConfig, IDiscordConfig } from './config.interfaces';
 
 export interface EnvConfig {
   [key: string]: any;
@@ -25,6 +25,9 @@ export class ConfigurationService {
       database: this.configService.get('db_name'),
       synchronize: this.configService.get('db_sync'),
       logging: this.configService.get('db_logging'),
+
+      discordId: this.configService.get('discord_id'),
+      discordSecret: this.configService.get('discord_secret'),
     };
     return config;
   }
@@ -38,6 +41,9 @@ export class ConfigurationService {
       database: Joi.string().required(),
       synchronize: Joi.boolean().required(),
       logging: Joi.boolean().required(),
+
+      discordId: Joi.string(),
+      discordSecret: Joi.string(),
     });
 
     const { error, value: validatedEnvConfig } = envSchema.validate(config);
@@ -47,7 +53,7 @@ export class ConfigurationService {
     return validatedEnvConfig;
   }
 
-  get databaseConfig(): IDatabaseConfig {
+  get database(): IDatabaseConfig {
     const config: IDatabaseConfig = {
       host: this.parsedEnv.host,
       port: this.parsedEnv.port,
@@ -56,6 +62,14 @@ export class ConfigurationService {
       database: this.parsedEnv.database,
       synchronize: this.parsedEnv.synchronize,
       logging: this.parsedEnv.logging,
+    };
+    return config;
+  }
+
+  get discord(): IDiscordConfig {
+    const config: IDiscordConfig = {
+      id: this.parsedEnv.discordId,
+      secret: this.parsedEnv.discordSecret,
     };
     return config;
   }
