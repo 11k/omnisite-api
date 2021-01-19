@@ -8,7 +8,7 @@ export interface IDatabaseConfig {
   readonly logging: boolean;
 }
 
-export interface IDiscordConfig {
+export interface IAuthConfig {
   readonly id: string;
   readonly secret: string;
 }
