@@ -25,7 +25,7 @@ export class AuthService {
     authType: AuthType,
     authId: string,
     email: string,
-    username: string,
+    username?: string,
   ): Promise<User> {
     return this.userRepo
       .create({

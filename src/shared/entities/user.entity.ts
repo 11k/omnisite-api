@@ -8,7 +8,7 @@ export default class User extends RootEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column({ unique: true })
+  @Column({ nullable: true, unique: true })
   username: string;
 
   @Column()
