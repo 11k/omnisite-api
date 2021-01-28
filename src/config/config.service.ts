@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 
-import { IDatabaseConfig } from './config.interfaces';
+import { IDatabaseConfig, IAuthConfig } from './config.interfaces';
 
 export interface EnvConfig {
   [key: string]: any;
@@ -25,6 +25,14 @@ export class ConfigurationService {
       database: this.configService.get('db_name'),
       synchronize: this.configService.get('db_sync'),
       logging: this.configService.get('db_logging'),
+
+      jwtSecret: this.configService.get('JWT_SECRET'),
+
+      discordId: this.configService.get('discord_id'),
+      discordSecret: this.configService.get('discord_secret'),
+
+      googleId: this.configService.get('google_id'),
+      googleSecret: this.configService.get('google_secret'),
     };
     return config;
   }
@@ -38,6 +46,14 @@ export class ConfigurationService {
       database: Joi.string().required(),
       synchronize: Joi.boolean().required(),
       logging: Joi.boolean().required(),
+
+      jwtSecret: Joi.string(),
+
+      discordId: Joi.string(),
+      discordSecret: Joi.string(),
+
+      googleId: Joi.string(),
+      googleSecret: Joi.string(),
     });
 
     const { error, value: validatedEnvConfig } = envSchema.validate(config);
@@ -47,7 +63,7 @@ export class ConfigurationService {
     return validatedEnvConfig;
   }
 
-  get databaseConfig(): IDatabaseConfig {
+  get database(): IDatabaseConfig {
     const config: IDatabaseConfig = {
       host: this.parsedEnv.host,
       port: this.parsedEnv.port,
@@ -56,6 +72,26 @@ export class ConfigurationService {
       database: this.parsedEnv.database,
       synchronize: this.parsedEnv.synchronize,
       logging: this.parsedEnv.logging,
+    };
+    return config;
+  }
+
+  get jwt(): string {
+    return this.parsedEnv.jwtSecret;
+  }
+
+  get discord(): IAuthConfig {
+    const config: IAuthConfig = {
+      id: this.parsedEnv.discordId,
+      secret: this.parsedEnv.discordSecret,
+    };
+    return config;
+  }
+
+  get google(): IAuthConfig {
+    const config: IAuthConfig = {
+      id: this.parsedEnv.googleId,
+      secret: this.parsedEnv.googleSecret,
     };
     return config;
   }

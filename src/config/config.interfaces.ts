@@ -7,3 +7,8 @@ export interface IDatabaseConfig {
   readonly synchronize: boolean;
   readonly logging: boolean;
 }
+
+export interface IAuthConfig {
+  readonly id: string;
+  readonly secret: string;
+}

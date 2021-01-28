@@ -7,8 +7,12 @@ import { AppService } from './app.service';
 import { ConfigurationModule } from './config/config.module';
 import { ConfigurationService } from './config/config.service';
 
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+
 @Module({
   imports: [
+    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: [`.env.${process.env.NODE_ENV}`],
@@ -17,11 +21,12 @@ import { ConfigurationService } from './config/config.service';
       imports: [ConfigurationModule],
       inject: [ConfigurationService],
       useFactory: async (configurationService: ConfigurationService) => ({
-        ...configurationService.databaseConfig,
+        ...configurationService.database,
         type: 'mysql',
         entities: [__dirname + '**/**/**/*.entity.{ts,js}'],
       }),
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
