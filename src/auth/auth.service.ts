@@ -24,7 +24,7 @@ export class AuthService {
   async createUser(
     authType: AuthType,
     authId: string,
-    email: string,
+    email?: string,
     username?: string,
   ): Promise<User> {
     return this.userRepo

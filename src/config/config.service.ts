@@ -33,6 +33,15 @@ export class ConfigurationService {
 
       googleId: this.configService.get('google_id'),
       googleSecret: this.configService.get('google_secret'),
+
+      redditId: this.configService.get('reddit_id'),
+      redditSecret: this.configService.get('reddit_secret'),
+
+      twitterId: this.configService.get('twitter_id'),
+      twitterSecret: this.configService.get('twitter_secret'),
+
+      twitchId: this.configService.get('twitch_id'),
+      twitchSecret: this.configService.get('twitch_secret'),
     };
     return config;
   }
@@ -54,6 +63,15 @@ export class ConfigurationService {
 
       googleId: Joi.string(),
       googleSecret: Joi.string(),
+
+      redditId: Joi.string(),
+      redditSecret: Joi.string(),
+
+      twitchId: Joi.string(),
+      twitchSecret: Joi.string(),
+
+      twitterId: Joi.string(),
+      twitterSecret: Joi.string(),
     });
 
     const { error, value: validatedEnvConfig } = envSchema.validate(config);
@@ -92,6 +110,30 @@ export class ConfigurationService {
     const config: IAuthConfig = {
       id: this.parsedEnv.googleId,
       secret: this.parsedEnv.googleSecret,
+    };
+    return config;
+  }
+
+  get reddit(): IAuthConfig {
+    const config: IAuthConfig = {
+      id: this.parsedEnv.redditId,
+      secret: this.parsedEnv.redditSecret,
+    };
+    return config;
+  }
+
+  get twitch(): IAuthConfig {
+    const config: IAuthConfig = {
+      id: this.parsedEnv.twitchId,
+      secret: this.parsedEnv.twitchSecret,
+    };
+    return config;
+  }
+
+  get twitter(): IAuthConfig {
+    const config: IAuthConfig = {
+      id: this.parsedEnv.twitterId,
+      secret: this.parsedEnv.twitterSecret,
     };
     return config;
   }

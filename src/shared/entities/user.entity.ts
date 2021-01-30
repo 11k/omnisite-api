@@ -5,7 +5,7 @@ import { AuthType } from '../enums';
 
 @Entity({ name: 'user' })
 export default class User extends RootEntity {
-  @Column({ unique: true })
+  @Column({ nullable: true, unique: true })
   email: string;
 
   @Column({ nullable: true, unique: true })
