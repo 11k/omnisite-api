@@ -7,7 +7,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { ConfigurationModule } from '../config/config.module';
 import { ConfigurationService } from '../config/config.service';
-import { JwtStrategy } from './strategies/jwt.strategy';
+import { JwtStrategy, GoogleStrategy } from './strategies';
 import { User } from '../shared/entities';
 
 @Module({
@@ -25,7 +25,7 @@ import { User } from '../shared/entities';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     TypeOrmModule.forFeature([User]),
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, GoogleStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
