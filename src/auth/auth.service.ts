@@ -24,8 +24,8 @@ export class AuthService {
   async createUser(
     authType: AuthType,
     authId: string,
-    email: string,
-    username: string,
+    email?: string,
+    username?: string,
   ): Promise<User> {
     return this.userRepo
       .create({
